@@ -18,6 +18,18 @@ mvn spring-boot:run -Dspring-boot.run.profiles=test
 
 <br>
 
+this project contains all my boilerplate code for a full stack application with:
+
+-   vanilla js (no framework)
+-   spring boot
+    -   maven
+    -   JPA (the JOOQ driver would have been better, but it isn't free for oracle DB)
+-   h2 database
+
+<br>
+
+testing:
+
 ```bash
 # create
 curl  -X POST http://localhost:8080/api/v1/... \
@@ -43,13 +55,3 @@ curl  -X POST http://localhost:8080/api/v1/sse/broadcast/hello%20everyone!
 # sse subscribe
 curl  -X GET http://localhost:8080/api/v1/sse/subscription
 ```
-
-<br>
-
-this project contains all my boilerplate code for a full stack application with:
-
--   vanilla js (no framework)
--   spring boot
-    -   maven
-    -   JPA (the JOOQ driver would have been better, but it isn't free for oracle DB)
--   h2 database
