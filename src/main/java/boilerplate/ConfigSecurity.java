@@ -25,42 +25,43 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true, prePostEnabled = true)
 public class ConfigSecurity {
-    // @Profile("test")
-    // @Bean
-    // public CorsConfigurationSource corsConfigurationSource() {
-    //     CorsConfiguration configuration = new CorsConfiguration();
 
-    //     val permitAll = Collections.singletonList("*");
-    //     configuration.setAllowedHeaders(permitAll);
-    //     configuration.setAllowedOrigins(permitAll);
+    @Profile("test")
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
 
-    //     // @formatter:off
-    //     val permitMethods = List.of(
-    //         HttpMethod.GET.name(),
-    //         HttpMethod.POST.name(),
-    //         HttpMethod.PUT.name(),
-    //         HttpMethod.PATCH.name(),
-    //         HttpMethod.DELETE.name(),
-    //         HttpMethod.OPTIONS.name(),
-    //         HttpMethod.HEAD.name(),
-    //         HttpMethod.TRACE.name()
-    //     );
-    //     // @formatter:on
-    //     configuration.setAllowedMethods(permitMethods);
+        val permitAll = Collections.singletonList("*");
+        configuration.setAllowedHeaders(permitAll);
+        configuration.setAllowedOrigins(permitAll);
 
-    //     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    //     source.registerCorsConfiguration("/**", configuration);
-    //     log.info("test mode: enabled cors for paths \"{}\"", permitAll);
-    //     return source;
-    // }
+        // @formatter:off
+        val permitMethods = List.of(
+            HttpMethod.GET.name(),
+            HttpMethod.POST.name(),
+            HttpMethod.PUT.name(),
+            HttpMethod.PATCH.name(),
+            HttpMethod.DELETE.name(),
+            HttpMethod.OPTIONS.name(),
+            HttpMethod.HEAD.name(),
+            HttpMethod.TRACE.name()
+        );
+        // @formatter:on
+        configuration.setAllowedMethods(permitMethods);
 
-    // @Bean
-    // public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    //     http.cors(Customizer.withDefaults());
-    //     http.csrf(csrf -> csrf.disable());
-    //     http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable())); // enable h2-browser gui
-    //     http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS)); // force sessions for sse
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        log.info("test mode: enabled cors for paths \"{}\"", permitAll);
+        return source;
+    }
 
-    //     return http.build();
-    // }
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.cors(Customizer.withDefaults());
+        http.csrf(csrf -> csrf.disable());
+        http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable())); // enable h2-browser gui
+        http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS)); // force sessions for sse
+
+        return http.build();
+    }
 }
