@@ -6,18 +6,50 @@ brew install openjdk
 git clone https://github.com/sueszli/springBootBoilerplate
 cd springBootBoilerplate
 
-# run application
+# install dependencies (and ignore ssl errors in case you are behind a proxy)
+mvn clean install -Dmaven.resolver.transport=wagon -Dmaven.clean.failOnError=false -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dmaven.wagon.http.ssl.ignore.validity.dates=true -Dhttps.protocols=TLSv1.2
 
+# list dependencies
+mvn dependency:tree
+
+# run with "test" profile
+mvn spring-boot:run -Dspring-boot.run.profiles=test
 ```
 
 <br>
 
-this project contains all boilerplate code for a full stack application with:
+```bash
+# create
+curl  -X POST http://localhost:8080/api/v1/dealType \
+      -H 'Content-Type: application/json' \
+      -d '{ "type":"test" }'
 
-- vanilla js (no framework)
-- spring boot
-  - maven
-  - JPA (the JOOQ driver would have been better, but it isn't free for oracle DB)
-- h2 database
+# read
+curl  -X GET http://localhost:8080/api/v1/dealType/1
+curl  -X GET http://localhost:8080/api/v1/dealType | json_pp
 
-it has a simple implementation of crud functionality with server sent events.
+# update
+curl  -X PUT http://localhost:8080/api/v1/dealType \
+      -H 'Content-Type: application/json' \
+      -d '{ "rowId": 1, "type":"hello" }'
+
+# delete
+curl  -X DELETE http://localhost:8080/api/v1/dealType/1
+curl  -X DELETE http://localhost:8080/api/v1/dealType
+
+# sse broadcast
+curl  -X POST http://localhost:8080/api/v1/sse/broadcast/hello%20everyone!
+
+# sse subscribe
+curl  -X GET http://localhost:8080/api/v1/sse/subscription
+```
+
+<br>
+
+this project contains all my boilerplate code for a full stack application with:
+
+-   vanilla js (no framework)
+-   spring boot
+    -   maven
+    -   JPA (the JOOQ driver would have been better, but it isn't free for oracle DB)
+-   h2 database
