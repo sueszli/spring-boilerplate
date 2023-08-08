@@ -1,3 +1,7 @@
+
+<img width="1028" alt="image" src="https://github.com/sueszli/springBootBoilerplate/assets/61852663/bd2248e0-1b13-49fc-91b2-67ae87244227">
+
+
 ```bash
 # install java
 brew install openjdk
