@@ -1,6 +1,4 @@
-
 <img width="1028" alt="image" src="https://github.com/sueszli/springBootBoilerplate/assets/61852663/bd2248e0-1b13-49fc-91b2-67ae87244227">
-
 
 ```bash
 # install java
@@ -39,11 +37,6 @@ testing:
 curl  -X POST http://localhost:8080/api/v1/duck \
       -H 'Content-Type: application/json' \
       -d '{ "firstName":"larry", "secondName": "larson" }'
-# create
-curl  -X POST http://localhost:8080/api/v1/duck \
-      -H 'Content-Type: application/json' \
-      -d '{ "firstName":"larry", "secondName": "larson" }'
-
 
 # read
 curl  -X GET http://localhost:8080/api/v1/duck/1

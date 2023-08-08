@@ -1,6 +1,8 @@
 package boilerplate;
 
 import java.util.Arrays;
+import java.util.function.Supplier;
+import java.util.stream.IntStream;
 import javax.sql.DataSource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,9 +45,19 @@ public class ConfigInit {
         };
     }
 
+    private final DuckRepository repository;
+
     @Profile("test")
     @Bean
     public ApplicationRunner testDatabaseInitializer(DataSource dataSource) {
+        Supplier<Duck> genDuck = () -> {
+            val duck = new Duck();
+            val uuidStr = java.util.UUID.randomUUID().toString().substring(0, 8);
+            duck.setFirstName("test_" + uuidStr);
+            duck.setSecondName("test_" + uuidStr);
+            return duck;
+        };
+
         return args -> {
             val fileName = "init.sql";
             val script = new ClassPathResource(fileName);
@@ -53,6 +65,8 @@ public class ConfigInit {
                 val connection = dataSource.getConnection();
                 ScriptUtils.executeSqlScript(connection, script);
                 log.info("ran {} successfully", fileName);
+            } else {
+                IntStream.range(0, 10).forEach(i -> repository.save(genDuck.get()));
             }
         };
     }

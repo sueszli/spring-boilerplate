@@ -2,10 +2,258 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <title>Duck app</title>
+
+        <link
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>
+            🦆
+            </text></svg>"
+        />
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-grid.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-theme-balham.css" />
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+        <script type="text/javascript" src="notificationToast.js"></script>
+
+        <script type="text/javascript" src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+        <script type="text/javascript" src="https://www.unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+
+        <script type="text/javascript" src="dataGenerator.js"></script>
+        <script type="text/javascript" src="validator.js"></script>
+        <script type="text/javascript" src="utils.js"></script>
+        <script type="text/javascript" src="index.js"></script>
     </head>
+
     <body>
-        <h1>hello world</h1>
+        <header>
+            <h1>Boilerplate CRUD app</h1>
+        </header>
+
+        <aside>
+            <h2>Broadcast</h2>
+            <p>Enter a message below and press the send button to send it to all your peers, including yourself.</p>
+            <form style="padding-top: 1rem; padding-left: 1.5rem" action="javascript:void(0)">
+                <input
+                    style="font-size: medium; height: 2rem; width: 20rem; padding: 1rem; padding-left: 2.5rem; border-radius: 1.5rem; border-width: 0px"
+                    type="text"
+                    id="broadcastMsg"
+                    placeholder="enter message here"
+                />
+                <button
+                    style="
+                        cursor: pointer;
+                        font-size: large;
+                        height: 4rem;
+                        width: 8rem;
+                        margin-left: 0.5rem;
+                        border-radius: 1.5rem;
+                        background-color: #4caf50;
+                        color: white;
+                        border-width: 0px;
+                    "
+                    onclick="SseService.broadcastMsg(document.querySelector('#broadcastMsg').value); document.querySelector('#broadcastMsg').value = ''"
+                >
+                    send
+                </button>
+            </form>
+        </aside>
+
+        <nav>
+            <h2>Navigation</h2>
+            <p>Select a table to view:</p>
+            <!-- injected by index.js -->
+        </nav>
+
+        <!-- tables injected by index.js -->
     </body>
+
+    <style>
+        /* -------------------- reset -------------------- */
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* --- center content --- */
+        :root {
+            --max-width: 1200px;
+            --side-padding: 0.5rem;
+        }
+        html {
+            margin: 0 auto;
+            max-width: var(--max-width);
+        }
+        body {
+            padding: 0 var(--side-padding) 0 var(--side-padding);
+        }
+
+        /* -------------------- typography, colors -------------------- */
+        * {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-weight: normal;
+        }
+        body {
+            background: #eee;
+        }
+        h1 {
+            font-size: xx-large;
+        }
+
+        /* -------------------- general margins -------------------- */
+        header {
+            margin-top: 1rem;
+        }
+        aside,
+        nav,
+        section {
+            margin-top: 1rem;
+            margin-bottom: 5rem;
+        }
+        aside h2,
+        nav h2 {
+            margin-bottom: 1rem;
+        }
+        p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* -------------------- navigation -------------------- */
+        nav p {
+            margin-bottom: 1rem;
+        }
+        nav a {
+            display: block;
+
+            text-decoration: none;
+            color: black;
+
+            margin-top: 0.5rem;
+            margin-left: 0.5rem;
+        }
+        nav a::before {
+            content: '•';
+            display: inline-block;
+            margin-right: 0.5rem;
+        }
+        nav a:hover {
+            color: #6991ba;
+        }
+
+        /* -------------------- buttons and chips -------------------- */
+        button {
+            border: 0;
+            border-width: 0;
+        }
+        * {
+            --chip-height: 1.75rem;
+            --chip-padding: 0.7rem;
+        }
+        .chip {
+            cursor: pointer;
+            color: white;
+
+            border-radius: 1.5rem;
+
+            height: var(--chip-height);
+            padding-left: var(--chip-padding);
+            padding-right: var(--chip-padding);
+
+            margin-right: 0.4rem;
+            margin-top: 0.75rem;
+            margin-bottom: 0.25rem;
+        }
+        .chip:not(:hover) {
+            background-color: #afafaf !important;
+        }
+        .selectAllChip {
+            background-color: #6991ba;
+        }
+        .deleteChip {
+            background-color: #f44336;
+        }
+        .exportCsvChip {
+            background-color: #83a85e;
+        }
+        .exportExcelChip {
+            background-color: #1d6f42;
+        }
+        .importExcelChip {
+            background-color: #1d6f60;
+        }
+
+        /* -------------------- grid -------------------- */
+        .grid {
+            height: 90vh;
+            width: 100%;
+        }
+        .ag-selection-checkbox.ag-invisible {
+            display: none !important;
+        }
+        .ag-row-pinned {
+            background-color: #e7e6e6;
+            font-style: italic;
+        }
+
+        /* --- grid: excel import field --- */
+        .importExcelInput {
+            display: block;
+            cursor: pointer;
+
+            margin: 1rem;
+
+            width: 40rem;
+            padding: 1rem;
+
+            border: 2px dashed rgb(29, 111, 96);
+            border-radius: 0.2rem;
+        }
+        .importExcelInput:hover {
+            transition: box-shadow 0.5s ease;
+            background-color: rgba(29, 111, 96, 0.1);
+        }
+        ::-webkit-file-upload-button {
+            margin-right: 1rem;
+            border-radius: 50%;
+            width: 2rem;
+            height: 2rem;
+
+            color: transparent;
+            border: rgba(29, 111, 96, 0.1) solid 4px;
+        }
+
+        /* --- grid: add button --- */
+        .addBtnWrapper {
+            display: flex;
+            justify-content: flex-end;
+            margin: 0;
+            padding: 0;
+            height: 0;
+            width: 100%;
+        }
+        .addBtn {
+            cursor: pointer;
+            font-size: larger;
+
+            border-radius: 50%;
+            color: white;
+
+            height: var(--chip-height);
+            width: var(--chip-height);
+
+            position: relative;
+            top: 4.9rem;
+            left: 0.5rem;
+            z-index: 9999;
+        }
+    </style>
 </html>
