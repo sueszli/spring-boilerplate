@@ -1,0 +1,38 @@
+# database
+spring:
+    jpa:
+        properties:
+            hibernate:
+                globally_quoted_identifiers: 'true'
+                dialect: org.hibernate.dialect.H2Dialect
+        show-sql: 'true'
+        hibernate:
+            ddl-auto: create-drop
+            naming:
+                physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        open-in-view: 'false'
+    datasource:
+        driverClassName: org.h2.Driver
+        password: ''
+        generate-unique-name: 'true'
+        username: sa
+        url: jdbc:h2:mem:rtnsconfig;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false
+    h2:
+        console:
+            path: /h2-console
+            enabled: 'true'
+
+# logging config
+logging:
+    level:
+        root: info
+
+# rest endpoint
+routes:
+    rest:
+        v1: /api/v1
+
+# server config
+server:
+    error:
+        include-message: always
