@@ -38,7 +38,7 @@ public class ConfigInit {
                 cmd = Arrays.toString(new String[] { "sh", "-c", browsers });
             }
 
-            // rt.exec(cmd);
+            rt.exec(cmd);
             log.info("opened browser to {}", url);
         };
     }
