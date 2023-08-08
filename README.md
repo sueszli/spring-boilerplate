@@ -20,22 +20,22 @@ mvn spring-boot:run -Dspring-boot.run.profiles=test
 
 ```bash
 # create
-curl  -X POST http://localhost:8080/api/v1/dealType \
+curl  -X POST http://localhost:8080/api/v1/... \
       -H 'Content-Type: application/json' \
       -d '{ "type":"test" }'
 
 # read
-curl  -X GET http://localhost:8080/api/v1/dealType/1
-curl  -X GET http://localhost:8080/api/v1/dealType | json_pp
+curl  -X GET http://localhost:8080/api/v1/.../1
+curl  -X GET http://localhost:8080/api/v1/... | json_pp
 
 # update
-curl  -X PUT http://localhost:8080/api/v1/dealType \
+curl  -X PUT http://localhost:8080/api/v1/... \
       -H 'Content-Type: application/json' \
       -d '{ "rowId": 1, "type":"hello" }'
 
 # delete
-curl  -X DELETE http://localhost:8080/api/v1/dealType/1
-curl  -X DELETE http://localhost:8080/api/v1/dealType
+curl  -X DELETE http://localhost:8080/api/v1/.../1
+curl  -X DELETE http://localhost:8080/api/v1/...
 
 # sse broadcast
 curl  -X POST http://localhost:8080/api/v1/sse/broadcast/hello%20everyone!
