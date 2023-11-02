@@ -5,8 +5,8 @@
 brew install openjdk
 
 # clone repository
-git clone https://github.com/sueszli/springBootBoilerplate
-cd springBootBoilerplate
+git clone https://github.com/sueszli/spring-boilerplate
+cd spring-boilerplate
 
 # install dependencies (and ignore ssl errors in case you are behind a proxy)
 mvn clean install -Dmaven.resolver.transport=wagon -Dmaven.clean.failOnError=false -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dmaven.wagon.http.ssl.ignore.validity.dates=true -Dhttps.protocols=TLSv1.2
