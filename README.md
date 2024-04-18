@@ -1,3 +1,29 @@
+this project contains my boilerplate code for a full stack application with:
+
+-   vanilla js (served by spring boot through `src/main/resources/static`)
+
+    -   AG-Grid
+    -   toastr.js
+    -   axios
+
+-   spring boot
+
+    -   maven
+    -   hibernate, JPA (the JOOQ driver would have been better, but it isn't free for oracle DB)
+    -   lombok, mapstruct
+
+-   h2 database
+
+i also implemented a very simple but effective SSE (Server Sent Events) broadcast and subscription mechanism. this allows the data to be edited by users concurrently: changes are broadcasted to all connected clients which then update their local data.
+
+here's what the ui looks like:
+
+<img width="500" alt="image" src="https://github.com/sueszli/springBootBoilerplate/assets/61852663/bd2248e0-1b13-49fc-91b2-67ae87244227">
+
+<br><br>
+
+# getting started
+
 ```bash
 #  -=-=-=-=-=-=-=-=-= CLONING AND RUNNING -=-=-=-=-=-=-=-=-=
 
@@ -43,28 +69,3 @@ curl  -X GET http://localhost:8080/api/v1/sse/subscription
 
 ```
 
-<br>
-
-## about
-
-this project contains my boilerplate code for a full stack application with:
-
--   vanilla js (served by spring boot through `src/main/resources/static`)
-
-    -   AG-Grid
-    -   toastr.js
-    -   axios
-
--   spring boot
-
-    -   maven
-    -   hibernate, JPA (the JOOQ driver would have been better, but it isn't free for oracle DB)
-    -   lombok, mapstruct
-
--   h2 database
-
-i also implemented a very simple but effective SSE (Server Sent Events) broadcast and subscription mechanism. this allows the data to be edited by users concurrently: changes are broadcasted to all connected clients which then update their local data.
-
-here's what the ui looks like:
-
-<img width="500" alt="image" src="https://github.com/sueszli/springBootBoilerplate/assets/61852663/bd2248e0-1b13-49fc-91b2-67ae87244227">
