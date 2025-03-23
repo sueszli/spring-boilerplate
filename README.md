@@ -1,5 +1,3 @@
-<img src="https://github.com/sueszli/springBootBoilerplate/assets/61852663/bd2248e0-1b13-49fc-91b2-67ae87244227">
-
 boilerplate code for a crud application with the following stack:
 
 - vanilla js (served by spring boot through `src/main/resources/static`)
@@ -14,6 +12,8 @@ boilerplate code for a crud application with the following stack:
 - sse (server sent events) based broadcast and subscription mechanism to allow concurrent writes
 
 # usage
+
+<img src="https://github.com/sueszli/springBootBoilerplate/assets/61852663/bd2248e0-1b13-49fc-91b2-67ae87244227">
 
 ```bash
 #
