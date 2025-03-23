@@ -1,8 +1,6 @@
 <img src="https://github.com/sueszli/springBootBoilerplate/assets/61852663/bd2248e0-1b13-49fc-91b2-67ae87244227">
 
-# about
-
-this project contains my boilerplate code for a full stack application with:
+boilerplate code for a crud application with the following stack:
 
 - vanilla js (served by spring boot through `src/main/resources/static`)
     - AG-Grid
@@ -14,9 +12,7 @@ this project contains my boilerplate code for a full stack application with:
     - lombok, mapstruct
 - h2 database
 
-i also implemented a very simple but effective SSE (Server Sent Events) broadcast and subscription mechanism. this allows the data to be edited by users concurrently: changes are broadcasted to all connected clients which then update their local data.
-
-# installation
+i additionally implemented a simple SSE (Server Sent Events) broadcast and subscription mechanism that allows concurrent updates by multiple users.
 
 ```bash
 #
