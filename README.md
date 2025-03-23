@@ -11,8 +11,9 @@ boilerplate code for a crud application with the following stack:
     - hibernate, JPA (the JOOQ driver would have been better, but it isn't free for oracle DB)
     - lombok, mapstruct
 - h2 database
+- sse (server sent events) based broadcast and subscription mechanism to allow concurrent writes
 
-i additionally implemented a simple SSE (Server Sent Events) broadcast and subscription mechanism that allows concurrent updates by multiple users.
+# usage
 
 ```bash
 #
